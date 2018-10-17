@@ -1,0 +1,19 @@
+{
+    "commands": {
+        "symbols": {},
+        "disabled": {
+            "channels": {},
+            "guilds": {}
+        }
+    },
+    "ext": {
+        "SystemCommands": {},
+        "ExtensionCommands": {},
+        "HelpCommands": {},
+        "undefined": {},
+        "CardSearch": {},
+        "HistoryCommands": {},
+        "DuelLinks": {},
+        "RedditCommands": {}
+    }
+}

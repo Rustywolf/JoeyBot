@@ -1,26 +1,54 @@
-var exports = module.exports = function Response(bot, send, count) {
-    this.send = send;
-
+module.exports = class Response {
+  constructor(extension, count, destination, onError) {
+    this.extension = extension;
+    this.destination = destination;
     this.cardCount = count;
-    this.processed = 0;
-    this.sucessful = 0;
-    this.embeded = [];
+    this.onError = onError;
 
-    this.handle = function (card) {
-        this.processed++;
-        try {
-            this.embeded.push(card.format());
-            this.sucessful++;
-        } catch (e) {
-            bot.exception(e);
-        }
-        
-        if (this.processed == this.cardCount && this.sucessful > 0) {
-            this.embeded.forEach(function(embed, index) {
-                setTimeout(function() {
-                    send(embed);
-                }, index * 200);
-            });
-        }
+    this.processed = 0;
+    this.embeds = [];
+    this.lastSentEmbed = 0;
+  }
+
+  handleError(e, card) {
+    if (this.onError) {
+      this.onError(e);
+    } else {
+      this.extension.error(e);
+      this.extension.error("Exception while processing card: " + card.name);
     }
-};
+  }
+
+  sendNext() {
+    let curr = this.embeds[this.lastSentEmbed++];
+    let promise = (typeof this.destination === "function") ?
+      this.destination(curr.embed) :
+      this.destination.send({
+        embed: curr.embed
+      });
+
+    promise.then(() => {
+      if (this.lastSentEmbed < this.embeds.length) {
+        this.sendNext();
+      }
+    }).catch(e => {
+      this.handleError(e, curr.card);
+    });
+  }
+
+  handle(card) {
+    this.processed++;
+    try {
+      this.embeds.push({
+        card: card,
+        embed: card.render()
+      });
+    } catch (e) {
+      this.handleError(e, card);
+    }
+
+    if (this.processed >= this.cardCount && this.embeds.length > 0) {
+      this.sendNext();
+    }
+  }
+}

@@ -1,31 +1,20 @@
 {
-  "name": "joeybotv3",
-  "version": "0.0.1",
-  "main": "main.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Rustywolf/JoeyBotV3.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Rustywolf/JoeyBotV2/issues"
-  },
-  "homepage": "https://github.com/Rustywolf/JoeyBotV3#readme",
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.1",
-    "difflib": "^0.2.4",
-    "discord.js": "11.0.0",
-    "html-entities": "^1.2.1",
-    "jsdom": "^9.8.3",
-    "quiche": "0.0.10",
-    "raw.js": "^0.6.0",
-    "respawn": "^2.5.0",
-    "winston": "^2.3.1"
-  },
-  "devDependencies": {},
+  "name": "joeybotv4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "difflib": "^0.2.4",
+    "discord.js": "^11.3.2",
+    "html-entities": "^1.2.1",
+    "raw.js": "^0.6.0",
+    "respawn": "^2.5.0",
+    "winston": "^2.4.1"
+  }
 }

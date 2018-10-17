@@ -1,0 +1,1 @@
+module.exports = require('D:\\Programming\\node\\DJSBuddy');
